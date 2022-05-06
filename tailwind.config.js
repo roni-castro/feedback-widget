@@ -1,13 +1,17 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
-    colors: {
-      brand: '#8257E5',
-      ...colors,
+    extend: {
+      colors: {
+        brand: {
+          300: '#996DFF',
+          500: '#8257E5',
+        },
+      },
+      borderRadius: {
+        md: '4px',
+      },
     },
-    extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
 };
