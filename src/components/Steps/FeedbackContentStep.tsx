@@ -25,22 +25,21 @@ export function FeedbackContentStep({
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const feedbackType = feedbackTypes[type];
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     setIsSendingFeedback(true);
-    sendFeedback({
-      type,
-      comment,
-      screenshot,
-    })
-      .then(() => {
-        onFeedbackSent();
-      })
-      .catch((e) => {
-        setIsSendingFeedback(false);
-        toast.error('Erro ao enviar feedback. Tente novamente', e.message);
+    try {
+      await sendFeedback({
+        type,
+        comment,
+        screenshot,
       });
+      onFeedbackSent();
+    } catch (e) {
+      setIsSendingFeedback(false);
+      toast.error('Erro ao enviar feedback. Tente novamente');
+    }
   }
 
   return (
